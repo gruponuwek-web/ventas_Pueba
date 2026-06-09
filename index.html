@@ -750,6 +750,7 @@ function buildForm(table) {
     // Tipo de input según columna
     if (col === 'contraseña' || col === 'password') {
       input.type = 'password';
+      input.id = 'password-input'; // ID para poder acceder después
     } else if (col.includes('correo') || col.includes('email')) {
       input.type = 'email';
     } else if (col.includes('fecha')) {
@@ -766,7 +767,46 @@ function buildForm(table) {
     }
 
     group.appendChild(label);
-    group.appendChild(input);
+    
+    // Si es contraseña, agregar input y botón de ojo
+    if (col === 'contraseña' || col === 'password') {
+      const inputWrapper = document.createElement('div');
+      inputWrapper.style.position = 'relative';
+      
+      input.style.paddingRight = '40px';
+      inputWrapper.appendChild(input);
+      
+      const eyeBtn = document.createElement('button');
+      eyeBtn.type = 'button';
+      eyeBtn.innerHTML = '👁️';
+      eyeBtn.style.position = 'absolute';
+      eyeBtn.style.right = '10px';
+      eyeBtn.style.top = '50%';
+      eyeBtn.style.transform = 'translateY(-50%)';
+      eyeBtn.style.border = 'none';
+      eyeBtn.style.background = 'none';
+      eyeBtn.style.cursor = 'pointer';
+      eyeBtn.style.fontSize = '1.2rem';
+      eyeBtn.style.padding = '5px';
+      
+      eyeBtn.onclick = (e) => {
+        e.preventDefault();
+        const inp = document.getElementById('password-input');
+        if (inp.type === 'password') {
+          inp.type = 'text';
+          eyeBtn.innerHTML = '👁️‍🗨️';
+        } else {
+          inp.type = 'password';
+          eyeBtn.innerHTML = '👁️';
+        }
+      };
+      
+      inputWrapper.appendChild(eyeBtn);
+      group.appendChild(inputWrapper);
+    } else {
+      group.appendChild(input);
+    }
+    
     form.appendChild(group);
   });
 }
