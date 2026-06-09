@@ -626,9 +626,16 @@ const app = {
     this.allData.forEach((row, idx) => {
       html += '<tr>';
       cols.forEach(col => {
-        const value = row[col];
+        let value = row[col];
         let display = value;
-        if (typeof value === 'boolean') display = value ? 'Sí' : 'No';
+        
+        // Ocultar contraseña en tabla
+        if (col === 'contraseña' || col === 'password') {
+          display = '••••••••';
+        } else if (typeof value === 'boolean') {
+          display = value ? 'Sí' : 'No';
+        }
+        
         html += `<td>${display || ''}</td>`;
       });
       html += `<td class="action-btns">
@@ -739,7 +746,18 @@ function buildForm(table) {
     label.textContent = col.replace(/_/g, ' ').toUpperCase();
 
     const input = document.createElement('input');
-    input.type = col.includes('correo') ? 'email' : col.includes('fecha') ? 'date' : 'text';
+    
+    // Tipo de input según columna
+    if (col === 'contraseña' || col === 'password') {
+      input.type = 'password';
+    } else if (col.includes('correo') || col.includes('email')) {
+      input.type = 'email';
+    } else if (col.includes('fecha')) {
+      input.type = 'date';
+    } else {
+      input.type = 'text';
+    }
+    
     input.name = col;
 
     if (table === 'clientes' && col === 'fecha_registro') {
