@@ -694,8 +694,12 @@ function switchTab(tab) {
   event.target.classList.add('active');
   document.getElementById(tab).classList.add('active');
 
-  if (tab === 'maestros') {
+  if (tab === 'ventas') {
+    app.loadTable('ventas');
+  } else if (tab === 'maestros') {
     app.loadTable(app.currentMaestro);
+  } else if (tab === 'usuarios') {
+    app.loadTable('usuarios');
   }
 }
 
