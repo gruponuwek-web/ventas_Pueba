@@ -670,6 +670,8 @@ async function saveRecord() {
   
   if (currentRecord) record.id = currentRecord;
   
+  console.log('Guardando:', record, 'Tabla:', currentTable);
+  
   try {
     const res = await fetch(`${API_URL}/rest/v1/${currentTable}`, {
       method: currentRecord ? 'PATCH' : 'POST',
@@ -677,15 +679,19 @@ async function saveRecord() {
       body: JSON.stringify(record)
     });
     
+    const data = await res.json();
+    
     if (res.ok) {
+      alert('✅ Guardado correctamente');
       closeModal();
       loadData(currentTable);
     } else {
-      alert('Error: ' + res.statusText);
+      console.error('Error response:', data);
+      alert('❌ Error: ' + (data.error || res.statusText));
     }
   } catch (err) {
-    alert('Error al guardar');
-    console.error(err);
+    console.error('Error al guardar:', err);
+    alert('❌ Error de conexión: ' + err.message + '\n¿El servidor está corriendo en localhost:3000?');
   }
 }
 
