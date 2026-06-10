@@ -578,19 +578,14 @@ const app = {
     
     try {
       const url = `${WORKER_URL}/rest/v1/${table}`;
-      console.log('Cargando desde:', url);
       
       const response = await fetch(url);
-      console.log('Respuesta:', response.status);
-      
-      if (!response.ok) throw new Error(`Error HTTP ${response.status}`);
+      if (!response.ok) throw new Error(`Error al cargar datos`);
       
       this.allData = await response.json();
-      console.log('Datos cargados:', this.allData.length, 'registros');
-      
       this.renderTable();
     } catch (err) {
-      console.error('Error al cargar tabla:', err);
+      console.error('Error:', err.message);
       const containerId = table === 'ventas' ? 'ventas-table' : 
                           table === 'usuarios' ? 'usuarios-table' : 'maestro-table';
       const container = document.getElementById(containerId);
@@ -646,7 +641,6 @@ const app = {
 
     html += '</tbody></table>';
     container.innerHTML = html;
-    console.log('Tabla renderizada con', this.allData.length, 'registros');
   }
 };
 
