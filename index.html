@@ -3,22 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión Comercial</title>
+<title>Gestión Comercial v2</title>
 <style>
 :root {
   --primary: #2C5AA0;
   --dark: #1a3a5c;
   --success: #9ACD32;
   --danger: #D32F2F;
+  --warning: #FFC107;
   --bg: #F5F5F5;
   --border: #D4D4D4;
+  --radius: 8px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-body { background: var(--bg); color: #333; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: #333; }
 
-/* LOGIN SCREEN */
-.login-container {
+/* LOGIN */
+.login-screen {
   position: fixed;
   top: 0;
   left: 0;
@@ -31,46 +33,38 @@ body { background: var(--bg); color: #333; }
   z-index: 2000;
 }
 
+.login-screen.hidden { display: none; }
+
 .login-box {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 40px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   max-width: 400px;
   width: 90%;
 }
 
-.login-box h1 {
-  color: var(--dark);
-  margin-bottom: 10px;
-  font-size: 1.8rem;
-}
-
-.login-box p {
-  color: #999;
-  margin-bottom: 30px;
-  font-size: 0.9rem;
-}
+.login-box h1 { color: var(--dark); margin-bottom: 10px; }
+.login-box p { color: #999; margin-bottom: 30px; font-size: 0.9rem; }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   color: var(--dark);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: 1.5px solid var(--border);
   border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
+  font-size: 0.95rem;
 }
 
 .form-group input:focus {
@@ -88,21 +82,13 @@ body { background: var(--bg); color: #333; }
   font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.2s;
 }
 
 .login-btn:hover { background: var(--dark); }
 
-.error-msg {
-  color: var(--danger);
-  margin-top: 10px;
-  font-size: 0.85rem;
-  text-align: center;
-}
+.error-msg { color: var(--danger); margin-top: 10px; font-size: 0.85rem; text-align: center; }
 
-.login-hidden { display: none !important; }
-
-/* APP CONTAINER */
+/* APP */
 .app-container {
   display: none;
   flex-direction: column;
@@ -121,9 +107,7 @@ header {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-header h1 {
-  font-size: 1.5rem;
-}
+header h1 { font-size: 1.5rem; }
 
 .header-right {
   display: flex;
@@ -135,16 +119,8 @@ header h1 {
   text-align: right;
 }
 
-.user-info .email {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.user-info .rol {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  text-transform: uppercase;
-}
+.user-info .email { font-size: 0.9rem; opacity: 0.9; }
+.user-info .rol { font-size: 0.75rem; opacity: 0.8; text-transform: uppercase; }
 
 .logout-btn {
   padding: 8px 16px;
@@ -154,7 +130,6 @@ header h1 {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.2s;
 }
 
 .logout-btn:hover { background: #B71C1C; }
@@ -162,16 +137,18 @@ header h1 {
 main {
   flex: 1;
   padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
+/* TABS */
 .tabs {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
   border-bottom: 2px solid var(--border);
+  flex-wrap: wrap;
 }
 
 .tab-btn {
@@ -193,13 +170,14 @@ main {
 .tab-content {
   display: none;
   background: white;
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .tab-content.active { display: block; }
 
+/* BUTTONS */
 .actions {
   display: flex;
   gap: 10px;
@@ -238,6 +216,7 @@ main {
 
 .btn-danger:hover { background: #B71C1C; }
 
+/* SEARCH */
 .search-box {
   margin-bottom: 20px;
 }
@@ -251,6 +230,7 @@ main {
   font-size: 0.9rem;
 }
 
+/* TABLE */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -277,6 +257,7 @@ tbody tr:hover {
   background: #F9F9F9;
 }
 
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -294,7 +275,7 @@ tbody tr:hover {
 
 .modal-content {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 30px;
   max-width: 600px;
   width: 90%;
@@ -314,21 +295,13 @@ tbody tr:hover {
   margin-bottom: 20px;
 }
 
-.form-group {
+.modal-body .form-group {
   margin-bottom: 15px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--dark);
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
   width: 100%;
   padding: 10px;
   border: 1.5px solid var(--border);
@@ -337,9 +310,9 @@ tbody tr:hover {
   font-family: inherit;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus {
   outline: none;
   border-color: var(--primary);
 }
@@ -350,25 +323,11 @@ tbody tr:hover {
   justify-content: flex-end;
 }
 
+/* OTROS */
 .loading {
   text-align: center;
   padding: 40px;
   color: #999;
-}
-
-.spinner {
-  border: 3px solid var(--border);
-  border-top: 3px solid var(--primary);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 10px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .error {
@@ -386,25 +345,45 @@ tbody tr:hover {
   border-radius: 6px;
   margin-bottom: 20px;
 }
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  table {
+    font-size: 0.8rem;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+}
 </style>
 </head>
 <body>
 
 <!-- LOGIN SCREEN -->
-<div class="login-container" id="login-screen">
+<div class="login-screen" id="login-screen">
   <div class="login-box">
     <h1>📦 Gestión Comercial</h1>
-    <p>Ingresa tus credenciales</p>
+    <p>Sistema de Ventas</p>
     <form onsubmit="handleLogin(event)">
       <div class="form-group">
-        <label>Email</label>
+        <label>📧 Email</label>
         <input type="email" id="email" required placeholder="admin@example.com">
       </div>
       <div class="form-group">
-        <label>Contraseña</label>
+        <label>🔐 Contraseña</label>
         <input type="password" id="password" required placeholder="••••••••">
       </div>
-      <button type="submit" class="login-btn">Ingresar</button>
+      <button type="submit" class="btn btn-primary">Ingresar</button>
       <div class="error-msg" id="login-error"></div>
     </form>
   </div>
@@ -419,16 +398,14 @@ tbody tr:hover {
         <div class="email" id="user-email"></div>
         <div class="rol" id="user-rol"></div>
       </div>
-      <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+      <button class="btn logout-btn" onclick="handleLogout()">Cerrar sesión</button>
     </div>
   </header>
 
   <main>
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('ventas')">📊 Ventas</button>
-      <button class="tab-btn" onclick="switchTab('clientes')">👥 Clientes</button>
-      <button class="tab-btn" onclick="switchTab('vendedores')">💼 Vendedores</button>
-      <button class="tab-btn" onclick="switchTab('productos')">📦 Productos</button>
+      <button class="tab-btn" onclick="switchTab('maestros')">⚙️ Maestros</button>
       <button class="tab-btn" onclick="switchTab('usuarios')">🔐 Usuarios</button>
     </div>
 
@@ -436,7 +413,7 @@ tbody tr:hover {
     <div class="tab-content active" id="ventas-tab">
       <h2>📊 Ventas</h2>
       <div class="actions">
-        <button class="btn btn-primary" onclick="openModal('ventas', null)">+ Nueva Venta</button>
+        <button class="btn btn-primary" onclick="openModal('ventas', null)">➕ Nueva Venta</button>
         <button class="btn btn-success" onclick="loadData('ventas')">🔄 Actualizar</button>
       </div>
       <div class="search-box">
@@ -445,50 +422,57 @@ tbody tr:hover {
       <div id="ventas-container"></div>
     </div>
 
-    <!-- CLIENTES -->
-    <div class="tab-content" id="clientes-tab">
-      <h2>👥 Clientes</h2>
-      <div class="actions">
-        <button class="btn btn-primary" onclick="openModal('clientes', null)">+ Nuevo Cliente</button>
-        <button class="btn btn-success" onclick="loadData('clientes')">🔄 Actualizar</button>
+    <!-- MAESTROS -->
+    <div class="tab-content" id="maestros-tab">
+      <h2>⚙️ Maestros</h2>
+      <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+        <button class="tab-btn active" onclick="switchMaestro('clientes')">👥 Clientes</button>
+        <button class="tab-btn" onclick="switchMaestro('vendedores')">💼 Vendedores</button>
+        <button class="tab-btn" onclick="switchMaestro('productos')">📦 Productos</button>
       </div>
-      <div class="search-box">
-        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'clientes-table')">
+      
+      <!-- CLIENTES -->
+      <div id="clientes-maestro">
+        <div class="actions">
+          <button class="btn btn-primary" onclick="openModal('clientes', null)">➕ Nuevo Cliente</button>
+          <button class="btn btn-success" onclick="loadData('clientes')">🔄 Actualizar</button>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'clientes-table')">
+        </div>
+        <div id="clientes-container"></div>
       </div>
-      <div id="clientes-container"></div>
-    </div>
-
-    <!-- VENDEDORES -->
-    <div class="tab-content" id="vendedores-tab">
-      <h2>💼 Vendedores</h2>
-      <div class="actions">
-        <button class="btn btn-primary" onclick="openModal('vendedores', null)">+ Nuevo Vendedor</button>
-        <button class="btn btn-success" onclick="loadData('vendedores')">🔄 Actualizar</button>
+      
+      <!-- VENDEDORES -->
+      <div id="vendedores-maestro" style="display: none;">
+        <div class="actions">
+          <button class="btn btn-primary" onclick="openModal('vendedores', null)">➕ Nuevo Vendedor</button>
+          <button class="btn btn-success" onclick="loadData('vendedores')">🔄 Actualizar</button>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'vendedores-table')">
+        </div>
+        <div id="vendedores-container"></div>
       </div>
-      <div class="search-box">
-        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'vendedores-table')">
+      
+      <!-- PRODUCTOS -->
+      <div id="productos-maestro" style="display: none;">
+        <div class="actions">
+          <button class="btn btn-primary" onclick="openModal('productos', null)">➕ Nuevo Producto</button>
+          <button class="btn btn-success" onclick="loadData('productos')">🔄 Actualizar</button>
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'productos-table')">
+        </div>
+        <div id="productos-container"></div>
       </div>
-      <div id="vendedores-container"></div>
-    </div>
-
-    <!-- PRODUCTOS -->
-    <div class="tab-content" id="productos-tab">
-      <h2>📦 Productos</h2>
-      <div class="actions">
-        <button class="btn btn-primary" onclick="openModal('productos', null)">+ Nuevo Producto</button>
-        <button class="btn btn-success" onclick="loadData('productos')">🔄 Actualizar</button>
-      </div>
-      <div class="search-box">
-        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'productos-table')">
-      </div>
-      <div id="productos-container"></div>
     </div>
 
     <!-- USUARIOS -->
     <div class="tab-content" id="usuarios-tab">
       <h2>🔐 Usuarios</h2>
       <div class="actions">
-        <button class="btn btn-primary" onclick="openModal('usuarios', null)">+ Nuevo Usuario</button>
+        <button class="btn btn-primary" onclick="openModal('usuarios', null)">➕ Nuevo Usuario</button>
         <button class="btn btn-success" onclick="loadData('usuarios')">🔄 Actualizar</button>
       </div>
       <div class="search-box">
@@ -499,10 +483,10 @@ tbody tr:hover {
   </main>
 </div>
 
-<!-- MODAL EDITAR -->
+<!-- MODAL -->
 <div class="modal" id="edit-modal">
   <div class="modal-content">
-    <div class="modal-header" id="modal-title">Editar Registro</div>
+    <div class="modal-header" id="modal-title">Editar</div>
     <div class="modal-body" id="modal-body"></div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal()" style="background: #999; color: white;">Cancelar</button>
@@ -512,13 +496,14 @@ tbody tr:hover {
 </div>
 
 <script>
+// ===== CONFIGURACIÓN =====
 const API_URL = 'http://localhost:3000';
 let currentUser = null;
 let currentTable = null;
 let currentRecord = null;
 let allData = {};
 
-// ===== AUTENTICACIÓN =====
+// ===== LOGIN =====
 async function handleLogin(e) {
   e.preventDefault();
   const email = document.getElementById('email').value;
@@ -541,8 +526,7 @@ async function handleLogin(e) {
       errorEl.textContent = 'Credenciales inválidas';
     }
   } catch (err) {
-    errorEl.textContent = 'Error de conexión. ¿El servidor está corriendo?';
-    console.error(err);
+    errorEl.textContent = 'Error: ¿El servidor está corriendo en localhost:3000?';
   }
 }
 
@@ -553,22 +537,30 @@ function handleLogout() {
 }
 
 function showApp() {
-  document.getElementById('login-screen').classList.add('login-hidden');
+  document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('app-container').classList.add('visible');
   document.getElementById('user-email').textContent = currentUser.email;
-  document.getElementById('user-rol').textContent = currentUser.rol.toUpperCase();
+  document.getElementById('user-rol').textContent = currentUser.rol;
   loadData('ventas');
+  loadData('clientes');
+  loadData('vendedores');
+  loadData('productos');
+  loadData('usuarios');
 }
 
 // ===== TABS =====
-function switchTab(table) {
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-  
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   event.target.classList.add('active');
-  document.getElementById(table + '-tab').classList.add('active');
-  
-  loadData(table);
+  document.getElementById(tab + '-tab').classList.add('active');
+}
+
+function switchMaestro(maestro) {
+  document.querySelectorAll('[id$="-maestro"]').forEach(m => m.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(maestro + '-maestro').style.display = 'block';
 }
 
 // ===== CRUD =====
@@ -576,54 +568,21 @@ async function loadData(table) {
   try {
     const res = await fetch(`${API_URL}/rest/v1/${table}`);
     const data = await res.json();
-    allData[table] = data;
-    renderTable(table, data);
+    allData[table] = Array.isArray(data) ? data : [];
+    renderTable(table, allData[table]);
   } catch (err) {
-    console.error('Error cargando datos:', err);
-    document.getElementById(table + '-container').innerHTML = `<div class="error">Error al cargar datos</div>`;
+    console.error('Error:', err);
   }
 }
 
-function renderTable(table, data) {
-  const columns = getColumns(table);
-  let html = `<table id="${table}-table"><thead><tr>`;
-  
-  columns.forEach(col => {
-    html += `<th>${col.label}</th>`;
-  });
-  html += '<th>Acciones</th></tr></thead><tbody>';
-  
-  data.forEach(row => {
-    html += '<tr>';
-    columns.forEach(col => {
-      let val = row[col.key] || '';
-      if (col.type === 'boolean') val = val ? '✓' : '';
-      html += `<td>${val}</td>`;
-    });
-    html += `<td style="white-space: nowrap;">
-      <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openModal('${table}', ${row[getIdColumn(table)]})">Editar</button>
-      <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteRecord('${table}', ${row[getIdColumn(table)]})">Borrar</button>
-    </td></tr>`;
-  });
-  
-  html += '</tbody></table>';
-  document.getElementById(table + '-container').innerHTML = html;
-}
-
-function getIdColumn(table) {
-  const map = {
-    'ventas': 'id_venta',
-    'clientes': 'id_cliente',
-    'vendedores': 'id_vendedor',
-    'productos': 'id_producto',
-    'usuarios': 'id_usuario'
-  };
+function getIdCol(table) {
+  const map = { ventas: 'id_venta', clientes: 'id_cliente', vendedores: 'id_vendedor', productos: 'id_producto', usuarios: 'id_usuario' };
   return map[table];
 }
 
-function getColumns(table) {
+function getCols(table) {
   const cols = {
-    'ventas': [
+    ventas: [
       { key: 'id_venta', label: 'ID' },
       { key: 'fecha_venta', label: 'Fecha' },
       { key: 'id_cliente', label: 'Cliente' },
@@ -632,76 +591,69 @@ function getColumns(table) {
       { key: 'total_venta', label: 'Total' },
       { key: 'estado_venta', label: 'Estado' }
     ],
-    'clientes': [
+    clientes: [
       { key: 'id_cliente', label: 'ID' },
       { key: 'nombre_cliente', label: 'Nombre' },
       { key: 'telefono', label: 'Teléfono' },
       { key: 'correo', label: 'Email' },
-      { key: 'ciudad', label: 'Ciudad' },
-      { key: 'tipo_cliente', label: 'Tipo' }
+      { key: 'ciudad', label: 'Ciudad' }
     ],
-    'vendedores': [
+    vendedores: [
       { key: 'id_vendedor', label: 'ID' },
       { key: 'nombre_vendedor', label: 'Nombre' },
       { key: 'correo', label: 'Email' },
-      { key: 'activo', label: 'Activo', type: 'boolean' }
+      { key: 'activo', label: 'Activo' }
     ],
-    'productos': [
+    productos: [
       { key: 'id_producto', label: 'ID' },
       { key: 'sku', label: 'SKU' },
       { key: 'nombre_producto', label: 'Nombre' },
       { key: 'categoria', label: 'Categoría' },
-      { key: 'precio_base', label: 'Precio' },
-      { key: 'costo_base', label: 'Costo' },
-      { key: 'activo', label: 'Activo', type: 'boolean' }
+      { key: 'precio_base', label: 'Precio' }
     ],
-    'usuarios': [
+    usuarios: [
       { key: 'id_usuario', label: 'ID' },
       { key: 'nombre_usuario', label: 'Nombre' },
       { key: 'email', label: 'Email' },
-      { key: 'rol', label: 'Rol' },
-      { key: 'activo', label: 'Activo', type: 'boolean' }
+      { key: 'rol', label: 'Rol' }
     ]
   };
   return cols[table] || [];
 }
 
-function openModal(table, recordId) {
+function renderTable(table, data) {
+  const cols = getCols(table);
+  let html = `<table id="${table}-table"><thead><tr>`;
+  cols.forEach(c => html += `<th>${c.label}</th>`);
+  html += '<th>Acciones</th></tr></thead><tbody>';
+  
+  data.forEach(row => {
+    html += '<tr>';
+    cols.forEach(c => html += `<td>${row[c.key] || ''}</td>`);
+    const id = row[getIdCol(table)];
+    html += `<td style="white-space: nowrap;"><button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openModal('${table}', ${id})">Editar</button> <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteRecord('${table}', ${id})">Borrar</button></td></tr>`;
+  });
+  
+  html += '</tbody></table>';
+  document.getElementById(table + '-container').innerHTML = html;
+}
+
+function openModal(table, id) {
   currentTable = table;
-  currentRecord = recordId;
-  const isNew = !recordId;
-  const data = isNew ? {} : allData[table].find(r => r[getIdColumn(table)] == recordId);
+  currentRecord = id;
+  const isNew = !id;
+  const data = isNew ? {} : allData[table].find(r => r[getIdCol(table)] == id);
   
   document.getElementById('modal-title').textContent = isNew ? `Nuevo ${table}` : `Editar ${table}`;
   
-  let formHtml = '';
-  const cols = getColumns(table);
-  
-  cols.forEach(col => {
-    if (col.key.startsWith('id_')) return;
-    const val = data ? data[col.key] || '' : '';
-    
-    if (col.type === 'boolean') {
-      formHtml += `
-        <div class="form-group">
-          <label>${col.label}</label>
-          <select name="${col.key}">
-            <option value="true" ${val === true ? 'selected' : ''}>Sí</option>
-            <option value="false" ${val === false ? 'selected' : ''}>No</option>
-          </select>
-        </div>
-      `;
-    } else {
-      formHtml += `
-        <div class="form-group">
-          <label>${col.label}</label>
-          <input type="text" name="${col.key}" value="${val}" required>
-        </div>
-      `;
-    }
+  let html = '';
+  getCols(table).forEach(c => {
+    if (c.key.startsWith('id_')) return;
+    const val = data ? data[c.key] || '' : '';
+    html += `<div class="form-group"><label>${c.label}</label><input type="text" name="${c.key}" value="${val}" required></div>`;
   });
   
-  document.getElementById('modal-body').innerHTML = formHtml;
+  document.getElementById('modal-body').innerHTML = html;
   document.getElementById('edit-modal').classList.add('active');
 }
 
@@ -711,17 +663,16 @@ function closeModal() {
 
 async function saveRecord() {
   const form = document.getElementById('modal-body');
-  const formData = new FormData(form);
-  const record = Object.fromEntries(formData);
+  const record = {};
+  form.querySelectorAll('input').forEach(inp => {
+    record[inp.name] = inp.value;
+  });
   
-  if (currentRecord) {
-    record.id = currentRecord;
-  }
+  if (currentRecord) record.id = currentRecord;
   
   try {
-    const method = currentRecord ? 'PATCH' : 'POST';
     const res = await fetch(`${API_URL}/rest/v1/${currentTable}`, {
-      method,
+      method: currentRecord ? 'PATCH' : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(record)
     });
@@ -730,41 +681,31 @@ async function saveRecord() {
       closeModal();
       loadData(currentTable);
     } else {
-      alert('Error al guardar: ' + res.statusText);
+      alert('Error: ' + res.statusText);
     }
   } catch (err) {
-    console.error('Error guardando:', err);
     alert('Error al guardar');
+    console.error(err);
   }
 }
 
 async function deleteRecord(table, id) {
-  if (!confirm('¿Eliminar este registro?')) return;
+  if (!confirm('¿Eliminar?')) return;
   
   try {
-    const res = await fetch(`${API_URL}/rest/v1/${table}/${id}`, {
-      method: 'DELETE'
-    });
-    
-    if (res.ok) {
-      loadData(table);
-    } else {
-      alert('Error al eliminar');
-    }
+    const res = await fetch(`${API_URL}/rest/v1/${table}/${id}`, { method: 'DELETE' });
+    if (res.ok) loadData(table);
+    else alert('Error al eliminar');
   } catch (err) {
-    console.error('Error eliminando:', err);
-    alert('Error al eliminar');
+    alert('Error');
   }
 }
 
 function filterTable(input, tableId) {
   const filter = input.value.toUpperCase();
-  const table = document.getElementById(tableId);
-  const rows = table.getElementsByTagName('tr');
-  
+  const rows = document.getElementById(tableId)?.getElementsByTagName('tr') || [];
   for (let i = 1; i < rows.length; i++) {
-    const text = rows[i].textContent.toUpperCase();
-    rows[i].style.display = text.includes(filter) ? '' : 'none';
+    rows[i].style.display = rows[i].textContent.toUpperCase().includes(filter) ? '' : 'none';
   }
 }
 
