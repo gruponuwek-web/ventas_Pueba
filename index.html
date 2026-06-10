@@ -3,7 +3,868 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión Comercial</title><!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestión Comercial</title>
+<style>
+:root {
+  --primary: #2C5AA0;
+  --dark: #1a3a5c;
+  --success: #9ACD32;
+  --danger: #D32F2F;
+  --bg: #F5F5F5;
+  --border: #D4D4D4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body { background: var(--bg); color: #333; }
+
+/* LOGIN */
+.login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.login-box {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.login-box h1 {
+  color: var(--dark);
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form input, .login-form button {
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.login-form button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-form button:hover {
+  background: var(--dark);
+}
+
+.login-error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.login-hidden { display: none; }
+
+/* HEADER */
+header {
+  background: linear-gradient(135deg, var(--primary), var(--dark));
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.logout-btn {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 15px 20px;
+  border-bottom: 2px solid var(--border);
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: 1.5px solid var(--border);
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* MAESTROS TABS */
+.maestros-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.maestros-tabs button {
+  padding: 10px 20px;
+  border: 1.5px solid var(--border);
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.maestros-tabs button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* SECTION */
+.section {
+  display: none;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.section.active {
+  display: block;
+}
+
+/* BUTTONS */
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--dark);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* SEARCH */
+.search-box {
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+/* TABLE */
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:hover {
+  background: var(--bg);
+}
+
+.action-btns {
+  display: flex;
+  gap: 5px;
+}
+
+.action-btns button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.delete-btn {
+  background: var(--danger);
+  color: white;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(44,90,160,0.15);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.empty-state p {
+  margin: 10px 0;
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}
+
+.spinner {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen" class="login-container">
+  <div class="login-box">
+    <h1>🔐 Gestión Comercial</h1>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+      <div id="login-error" class="login-error"></div>
+    </form>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="login-hidden">
+  <!-- HEADER -->
+  <header>
+    <h1>💼 Gestión Comercial</h1>
+    <div class="user-info">
+      <div>
+        <div id="user-name" style="font-weight: 600;"></div>
+        <div id="user-email" style="font-size: 0.8rem; opacity: 0.8;"></div>
+      </div>
+      <div class="user-badge" id="user-role"></div>
+      <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('ventas')">💰 Ventas</button>
+    <button class="tab-btn" onclick="switchTab('maestros')">📚 Maestros</button>
+    <button class="tab-btn" onclick="switchTab('usuarios')">👤 Usuarios</button>
+  </div>
+
+  <div class="container">
+    <!-- VENTAS -->
+    <div id="ventas" class="section active">
+      <h2>💰 Ventas</h2>
+      <div class="button-group">
+        <button class="btn btn-primary" onclick="openModal('ventas')">➕ Nueva Venta</button>
+        <button class="btn btn-secondary" onclick="loadTable('ventas')">🔄 Actualizar</button>
+        <button class="btn btn-secondary" onclick="exportCSV('ventas')">📥 Descargar CSV</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Buscar..." onkeyup="filterTable()">
+      </div>
+      <div id="ventas-table" class="table-container loading">
+        <div class="spinner"></div> Cargando datos...
+      </div>
+    </div>
+
+    <!-- MAESTROS -->
+    <div id="maestros" class="section">
+      <h2>📚 Maestros</h2>
+      <div class="maestros-tabs">
+        <button onclick="switchMaestro('clientes')" class="active">👥 Clientes</button>
+        <button onclick="switchMaestro('vendedores')">👨‍💼 Vendedores</button>
+        <button onclick="switchMaestro('productos')">📦 Productos</button>
+      </div>
+      <div class="button-group">
+        <button class="btn btn-primary" id="btn-nuevo" onclick="openModal(app.currentMaestro)">➕ Nuevo</button>
+        <button class="btn btn-secondary" onclick="loadTable(app.currentMaestro)">🔄 Actualizar</button>
+        <button class="btn btn-secondary" onclick="exportCSV(app.currentMaestro)">📥 Descargar CSV</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="search-maestro" placeholder="Buscar..." onkeyup="filterTable()">
+      </div>
+      <div id="maestro-table" class="table-container loading">
+        <div class="spinner"></div> Cargando datos...
+      </div>
+    </div>
+
+    <!-- USUARIOS (ADMIN ONLY) -->
+    <div id="usuarios" class="section">
+      <h2>👤 Usuarios</h2>
+      <div class="button-group">
+        <button class="btn btn-primary" onclick="openModal('usuarios')">➕ Nuevo Usuario</button>
+        <button class="btn btn-secondary" onclick="loadTable('usuarios')">🔄 Actualizar</button>
+      </div>
+      <div id="usuarios-table" class="table-container loading">
+        <div class="spinner"></div> Cargando datos...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 id="modal-title"></h2>
+    <form id="data-form" onsubmit="handleSave(event)">
+      <div id="form-fields"></div>
+      <div class="modal-buttons">
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// ===== CONFIGURACIÓN =====
+const API_URL = 'http://localhost:3000';
+
+const app = {
+  user: null,
+  currentTable: 'ventas',
+  currentMaestro: 'clientes',
+  allData: [],
+  editingId: null,
+  editingRecord: null,
+
+  async init() {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      try {
+        this.user = JSON.parse(stored);
+        this.showApp();
+        await this.loadTable('ventas');
+      } catch (err) {
+        this.showLogin();
+      }
+    } else {
+      this.showLogin();
+    }
+  },
+
+  showLogin() {
+    document.getElementById('login-screen').classList.remove('login-hidden');
+    document.getElementById('app').classList.add('login-hidden');
+  },
+
+  showApp() {
+    document.getElementById('login-screen').classList.add('login-hidden');
+    document.getElementById('app').classList.remove('login-hidden');
+    this.updateUserDisplay();
+  },
+
+  updateUserDisplay() {
+    if (!this.user) return;
+    document.getElementById('user-name').textContent = this.user.nombre_usuario || '';
+    document.getElementById('user-email').textContent = this.user.email || '';
+    document.getElementById('user-role').textContent = this.user.rol.toUpperCase();
+    
+    if (this.user.rol !== 'admin') {
+      document.getElementById('usuarios').style.display = 'none';
+    }
+  },
+
+  async loadTable(table) {
+    this.currentTable = table;
+    const containerId = table === 'ventas' ? 'ventas-table' : 
+                        table === 'usuarios' ? 'usuarios-table' : 'maestro-table';
+    const container = document.getElementById(containerId);
+    if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando datos...</div>';
+    
+    try {
+      const url = `${API_URL}/rest/v1/${table}`;
+      console.log('Cargando desde:', url);
+      
+      const response = await fetch(url);
+      console.log('Respuesta:', response.status);
+      
+      if (!response.ok) throw new Error(`Error HTTP ${response.status}`);
+      
+      this.allData = await response.json();
+      if (!Array.isArray(this.allData)) this.allData = [];
+      console.log('Datos cargados:', this.allData.length, 'registros');
+      
+      this.renderTable();
+    } catch (err) {
+      console.error('Error al cargar tabla:', err);
+      const containerId = table === 'ventas' ? 'ventas-table' : 
+                          table === 'usuarios' ? 'usuarios-table' : 'maestro-table';
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = `<div class="empty-state"><p>❌ Error: ${err.message}</p><p style="font-size: 0.8rem;">¿El servidor está corriendo en localhost:3000?</p></div>`;
+      }
+    }
+  },
+
+  renderTable() {
+    const containerId = this.currentTable === 'ventas' ? 'ventas-table' : 
+                        this.currentTable === 'usuarios' ? 'usuarios-table' : 'maestro-table';
+    const container = document.getElementById(containerId);
+    
+    if (!container) {
+      console.error('Contenedor no encontrado:', containerId);
+      return;
+    }
+
+    if (!this.allData || this.allData.length === 0) {
+      container.innerHTML = '<div class="empty-state"><p>📭 No hay datos</p></div>';
+      return;
+    }
+
+    const cols = Object.keys(this.allData[0]);
+    let html = '<table><thead><tr>';
+    
+    cols.forEach(col => {
+      html += `<th>${col.replace(/_/g, ' ').toUpperCase()}</th>`;
+    });
+    html += '<th>ACCIONES</th></tr></thead><tbody>';
+
+    this.allData.forEach((row, idx) => {
+      html += '<tr>';
+      cols.forEach(col => {
+        const value = row[col];
+        let display = value;
+        if (typeof value === 'boolean') display = value ? 'Sí' : 'No';
+        html += `<td>${display || ''}</td>`;
+      });
+      html += `<td class="action-btns">
+        <button class="edit-btn" onclick="editRecord(${idx})">✏️ Editar</button>
+        <button class="delete-btn" onclick="deleteRecord(${idx})">🗑️ Borrar</button>
+      </td></tr>`;
+    });
+
+    html += '</tbody></table>';
+    container.innerHTML = html;
+    console.log('Tabla renderizada con', this.allData.length, 'registros');
+  }
+};
+
+// ===== LOGIN =====
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  try {
+    const res = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+    
+    if (data.success) {
+      app.user = {
+        nombre_usuario: email.split('@')[0],
+        email: email,
+        rol: data.rol
+      };
+      localStorage.setItem('user', JSON.stringify(app.user));
+      app.showApp();
+      await app.loadTable('ventas');
+    } else {
+      throw new Error('Credenciales inválidas');
+    }
+  } catch (err) {
+    document.getElementById('login-error').textContent = err.message;
+  }
+}
+
+function handleLogout() {
+  localStorage.removeItem('user');
+  app.user = null;
+  app.showLogin();
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-password').value = '';
+}
+
+// ===== TABS =====
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  
+  event.target.classList.add('active');
+  document.getElementById(tab).classList.add('active');
+
+  if (tab === 'maestros') {
+    app.loadTable(app.currentMaestro);
+  }
+}
+
+function switchMaestro(maestro) {
+  app.currentMaestro = maestro;
+  document.querySelectorAll('.maestros-tabs button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  app.loadTable(maestro);
+}
+
+// ===== MODAL =====
+async function openModal(table) {
+  app.currentTable = table;
+  app.editingId = null;
+  app.editingRecord = null;
+  
+  // Cargar datos primero si no están cargados
+  if (app.allData.length === 0) {
+    await app.loadTable(table);
+  }
+  
+  document.getElementById('modal-title').textContent = `Crear ${table}`;
+  buildForm(table, null);
+  document.getElementById('modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.getElementById('data-form').reset();
+}
+
+function buildForm(table, record) {
+  const form = document.getElementById('form-fields');
+  form.innerHTML = '';
+
+  const sample = app.allData[0] || {};
+  const cols = Object.keys(sample).filter(col => !col.startsWith('id_'));
+
+  cols.forEach(col => {
+    const group = document.createElement('div');
+    group.className = 'form-group';
+
+    const label = document.createElement('label');
+    label.textContent = col.replace(/_/g, ' ').toUpperCase();
+
+    const input = document.createElement('input');
+    input.type = col.includes('correo') ? 'email' : col.includes('fecha') ? 'date' : 'text';
+    input.name = col;
+
+    if (record) {
+      input.value = record[col] || '';
+    } else if (table === 'clientes' && col === 'fecha_registro') {
+      input.type = 'date';
+      input.value = new Date().toISOString().split('T')[0];
+    }
+
+    group.appendChild(label);
+    group.appendChild(input);
+    form.appendChild(group);
+  });
+}
+
+function editRecord(idx) {
+  const record = app.allData[idx];
+  const idKey = Object.keys(record)[0];
+  app.editingId = record[idKey];
+  app.editingRecord = record;
+  
+  document.getElementById('modal-title').textContent = `Editar ${app.currentTable}`;
+  buildForm(app.currentTable, record);
+
+  document.getElementById('modal').classList.add('active');
+}
+
+async function deleteRecord(idx) {
+  if (!confirm('¿Estás seguro de que quieres borrar esto?')) return;
+
+  const record = app.allData[idx];
+  const idKey = Object.keys(record)[0];
+  const idValue = record[idKey];
+
+  try {
+    const url = `${API_URL}/rest/v1/${app.currentTable}/${idValue}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    
+    if (!response.ok) throw new Error('Error al borrar');
+    
+    alert('✅ Registro eliminado correctamente');
+    await app.loadTable(app.currentTable);
+  } catch (err) {
+    alert('❌ Error: ' + err.message);
+  }
+}
+
+async function handleSave(e) {
+  e.preventDefault();
+
+  const formData = new FormData(document.getElementById('data-form'));
+  const record = Object.fromEntries(formData);
+
+  // Si está editando, agregar el ID
+  if (app.editingId) {
+    record.id = app.editingId;
+  }
+
+  console.log('Guardando:', record, 'Editando:', app.editingId);
+
+  try {
+    const url = `${API_URL}/rest/v1/${app.currentTable}`;
+    const method = app.editingId ? 'PATCH' : 'POST';
+
+    const response = await fetch(url, {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(record)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Error al guardar');
+    }
+
+    alert('✅ Guardado correctamente');
+    closeModal();
+    await app.loadTable(app.currentTable);
+  } catch (err) {
+    console.error('Error:', err);
+    alert('❌ Error: ' + err.message);
+  }
+}
+
+function filterTable() {
+  const searchInput = document.getElementById(app.currentTable === 'maestros' ? 'search-maestro' : 'search-input').value.toLowerCase();
+  // Implementar filtro según sea necesario
+}
+
+function exportCSV(table) {
+  if (app.allData.length === 0) {
+    alert('No hay datos para exportar');
+    return;
+  }
+
+  const cols = Object.keys(app.allData[0]);
+  let csv = cols.join(',') + '\n';
+  
+  app.allData.forEach(row => {
+    csv += cols.map(col => `"${row[col] || ''}"`).join(',') + '\n';
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${table}_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+// ===== INIT =====
+window.addEventListener('load', () => app.init());
+</script>
+
+</body>
+</html>
 <style>
 :root {
   --primary: #2C5AA0;
