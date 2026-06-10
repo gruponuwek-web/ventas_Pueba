@@ -17,7 +17,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
 body { background: var(--bg); color: #333; }
 
-/* LOGIN */
+/* LOGIN SCREEN */
 .login-container {
   position: fixed;
   top: 0;
@@ -46,42 +46,73 @@ body { background: var(--bg); color: #333; }
   font-size: 1.8rem;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.login-box p {
+  color: #999;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
 }
 
-.login-form input, .login-form button {
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
   padding: 12px;
   border: 1.5px solid var(--border);
   border-radius: 6px;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
 }
 
-.login-form button {
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
   background: var(--primary);
   color: white;
   border: none;
-  cursor: pointer;
+  border-radius: 6px;
   font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
 }
 
-.login-form button:hover {
-  background: var(--dark);
-}
+.login-btn:hover { background: var(--dark); }
 
-.login-error {
+.error-msg {
   color: var(--danger);
+  margin-top: 10px;
   font-size: 0.85rem;
   text-align: center;
 }
 
-.login-hidden { display: none; }
+.login-hidden { display: none !important; }
 
-/* HEADER */
+/* APP CONTAINER */
+.app-container {
+  display: none;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container.visible { display: flex; }
+
 header {
-  background: linear-gradient(135deg, var(--primary), var(--dark));
+  background: var(--primary);
   color: white;
   padding: 20px;
   display: flex;
@@ -90,109 +121,90 @@ header {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.user-info {
+header h1 {
+  font-size: 1.5rem;
+}
+
+.header-right {
   display: flex;
-  align-items: center;
   gap: 15px;
+  align-items: center;
 }
 
-.user-badge {
-  background: rgba(255,255,255,0.2);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
+.user-info {
+  text-align: right;
 }
 
-.logout-btn {
-  background: var(--danger);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.logout-btn:hover {
+.user-info .email {
+  font-size: 0.9rem;
   opacity: 0.9;
 }
 
-/* TABS */
+.user-info .rol {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background: var(--danger);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover { background: #B71C1C; }
+
+main {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .tabs {
   display: flex;
   gap: 10px;
-  background: white;
-  padding: 15px 20px;
+  margin-bottom: 20px;
   border-bottom: 2px solid var(--border);
 }
 
 .tab-btn {
-  padding: 10px 20px;
-  border: 1.5px solid var(--border);
+  padding: 12px 20px;
   background: white;
-  border-radius: 6px;
+  border: none;
   cursor: pointer;
   font-weight: 600;
+  color: #666;
+  border-bottom: 3px solid transparent;
   transition: all 0.2s;
 }
 
 .tab-btn.active {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+  color: var(--primary);
+  border-bottom-color: var(--primary);
 }
 
-/* CONTAINER */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* MAESTROS TABS */
-.maestros-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.maestros-tabs button {
-  padding: 10px 20px;
-  border: 1.5px solid var(--border);
-  background: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.maestros-tabs button.active {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-/* SECTION */
-.section {
+.tab-content {
   display: none;
   background: white;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.section.active {
-  display: block;
-}
+.tab-content.active { display: block; }
 
-/* BUTTONS */
-.button-group {
+.actions {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -210,49 +222,33 @@ header {
   color: white;
 }
 
-.btn-primary:hover {
-  background: var(--dark);
+.btn-primary:hover { background: var(--dark); }
+
+.btn-success {
+  background: var(--success);
+  color: #333;
 }
 
-.btn-secondary {
-  background: white;
-  color: var(--primary);
-  border: 1.5px solid var(--primary);
-}
-
-.btn-secondary:hover {
-  background: var(--primary);
-  color: white;
-}
+.btn-success:hover { background: #8AB028; }
 
 .btn-danger {
   background: var(--danger);
   color: white;
 }
 
-.btn-danger:hover {
-  opacity: 0.9;
-}
+.btn-danger:hover { background: #B71C1C; }
 
-/* SEARCH */
 .search-box {
   margin-bottom: 20px;
 }
 
 .search-box input {
   width: 100%;
-  max-width: 400px;
-  padding: 12px;
+  max-width: 300px;
+  padding: 10px;
   border: 1.5px solid var(--border);
   border-radius: 6px;
-  font-size: 0.95rem;
-}
-
-/* TABLE */
-.table-container {
-  overflow-x: auto;
-  border-radius: 8px;
-  border: 1.5px solid var(--border);
+  font-size: 0.9rem;
 }
 
 table {
@@ -261,14 +257,15 @@ table {
   font-size: 0.9rem;
 }
 
-th {
+thead {
   background: var(--primary);
   color: white;
+}
+
+th {
   padding: 12px;
   text-align: left;
   font-weight: 600;
-  position: sticky;
-  top: 0;
 }
 
 td {
@@ -276,35 +273,10 @@ td {
   border-bottom: 1px solid var(--border);
 }
 
-tr:hover {
-  background: var(--bg);
+tbody tr:hover {
+  background: #F9F9F9;
 }
 
-.action-btns {
-  display: flex;
-  gap: 5px;
-}
-
-.action-btns button {
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.edit-btn {
-  background: #4CAF50;
-  color: white;
-}
-
-.delete-btn {
-  background: var(--danger);
-  color: white;
-}
-
-/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -318,9 +290,7 @@ tr:hover {
   justify-content: center;
 }
 
-.modal.active {
-  display: flex;
-}
+.modal.active { display: flex; }
 
 .modal-content {
   background: white;
@@ -330,33 +300,30 @@ tr:hover {
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
-  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-.modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #666;
+.modal-header {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--dark);
 }
 
-.modal-close:hover {
-  color: #333;
+.modal-body {
+  margin-bottom: 20px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+  margin-bottom: 5px;
   color: var(--dark);
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .form-group input,
@@ -366,7 +333,7 @@ tr:hover {
   padding: 10px;
   border: 1.5px solid var(--border);
   border-radius: 6px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-family: inherit;
 }
 
@@ -375,522 +342,440 @@ tr:hover {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(44,90,160,0.15);
 }
 
-.modal-buttons {
+.modal-footer {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  margin-top: 30px;
 }
 
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 40px 20px;
-  color: #999;
-}
-
-.empty-state p {
-  margin: 10px 0;
-}
-
-/* LOADING */
 .loading {
   text-align: center;
-  padding: 20px;
+  padding: 40px;
   color: #999;
 }
 
 .spinner {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
   border: 3px solid var(--border);
-  border-top-color: var(--primary);
+  border-top: 3px solid var(--primary);
   border-radius: 50%;
+  width: 40px;
+  height: 40px;
   animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  background: #FFEBEE;
+  color: var(--danger);
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.success {
+  background: #E8F5E9;
+  color: #2E7D32;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen" class="login-container">
+<!-- LOGIN SCREEN -->
+<div class="login-container" id="login-screen">
   <div class="login-box">
-    <h1>🔐 Gestión Comercial</h1>
-    <form class="login-form" onsubmit="handleLogin(event)">
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-password" placeholder="Contraseña" required>
-      <button type="submit">Ingresar</button>
-      <div id="login-error" class="login-error"></div>
+    <h1>📦 Gestión Comercial</h1>
+    <p>Ingresa tus credenciales</p>
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" required placeholder="admin@example.com">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="password" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="login-btn">Ingresar</button>
+      <div class="error-msg" id="login-error"></div>
     </form>
   </div>
 </div>
 
 <!-- APP -->
-<div id="app" class="login-hidden">
-  <!-- HEADER -->
+<div class="app-container" id="app-container">
   <header>
-    <h1>💼 Gestión Comercial</h1>
-    <div class="user-info">
-      <div>
-        <div id="user-name" style="font-weight: 600;"></div>
-        <div id="user-email" style="font-size: 0.8rem; opacity: 0.8;"></div>
+    <h1>📦 Gestión Comercial</h1>
+    <div class="header-right">
+      <div class="user-info">
+        <div class="email" id="user-email"></div>
+        <div class="rol" id="user-rol"></div>
       </div>
-      <div class="user-badge" id="user-role"></div>
       <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
     </div>
   </header>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('ventas')">💰 Ventas</button>
-    <button class="tab-btn" onclick="switchTab('maestros')">📚 Maestros</button>
-    <button class="tab-btn" onclick="switchTab('usuarios')">👤 Usuarios</button>
-  </div>
+  <main>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('ventas')">📊 Ventas</button>
+      <button class="tab-btn" onclick="switchTab('clientes')">👥 Clientes</button>
+      <button class="tab-btn" onclick="switchTab('vendedores')">💼 Vendedores</button>
+      <button class="tab-btn" onclick="switchTab('productos')">📦 Productos</button>
+      <button class="tab-btn" onclick="switchTab('usuarios')">🔐 Usuarios</button>
+    </div>
 
-  <div class="container">
     <!-- VENTAS -->
-    <div id="ventas" class="section active">
-      <h2>💰 Ventas</h2>
-      <div class="button-group">
-        <button class="btn btn-primary" onclick="openModal('ventas')">➕ Nueva Venta</button>
-        <button class="btn btn-secondary" onclick="loadTable('ventas')">🔄 Actualizar</button>
-        <button class="btn btn-secondary" onclick="exportCSV('ventas')">📥 Descargar CSV</button>
+    <div class="tab-content active" id="ventas-tab">
+      <h2>📊 Ventas</h2>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openModal('ventas', null)">+ Nueva Venta</button>
+        <button class="btn btn-success" onclick="loadData('ventas')">🔄 Actualizar</button>
       </div>
       <div class="search-box">
-        <input type="text" id="search-input" placeholder="Buscar..." onkeyup="filterTable()">
+        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'ventas-table')">
       </div>
-      <div id="ventas-table" class="table-container loading">
-        <div class="spinner"></div> Cargando datos...
-      </div>
+      <div id="ventas-container"></div>
     </div>
 
-    <!-- MAESTROS -->
-    <div id="maestros" class="section">
-      <h2>📚 Maestros</h2>
-      <div class="maestros-tabs">
-        <button onclick="switchMaestro('clientes')" class="active">👥 Clientes</button>
-        <button onclick="switchMaestro('vendedores')">👨‍💼 Vendedores</button>
-        <button onclick="switchMaestro('productos')">📦 Productos</button>
-      </div>
-      <div class="button-group">
-        <button class="btn btn-primary" id="btn-nuevo" onclick="openModal(app.currentMaestro)">➕ Nuevo</button>
-        <button class="btn btn-secondary" onclick="loadTable(app.currentMaestro)">🔄 Actualizar</button>
-        <button class="btn btn-secondary" onclick="exportCSV(app.currentMaestro)">📥 Descargar CSV</button>
+    <!-- CLIENTES -->
+    <div class="tab-content" id="clientes-tab">
+      <h2>👥 Clientes</h2>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openModal('clientes', null)">+ Nuevo Cliente</button>
+        <button class="btn btn-success" onclick="loadData('clientes')">🔄 Actualizar</button>
       </div>
       <div class="search-box">
-        <input type="text" id="search-maestro" placeholder="Buscar..." onkeyup="filterTable()">
+        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'clientes-table')">
       </div>
-      <div id="maestro-table" class="table-container loading">
-        <div class="spinner"></div> Cargando datos...
-      </div>
+      <div id="clientes-container"></div>
     </div>
 
-    <!-- USUARIOS (ADMIN ONLY) -->
-    <div id="usuarios" class="section">
-      <h2>👤 Usuarios</h2>
-      <div class="button-group">
-        <button class="btn btn-primary" onclick="openModal('usuarios')">➕ Nuevo Usuario</button>
-        <button class="btn btn-secondary" onclick="loadTable('usuarios')">🔄 Actualizar</button>
+    <!-- VENDEDORES -->
+    <div class="tab-content" id="vendedores-tab">
+      <h2>💼 Vendedores</h2>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openModal('vendedores', null)">+ Nuevo Vendedor</button>
+        <button class="btn btn-success" onclick="loadData('vendedores')">🔄 Actualizar</button>
       </div>
-      <div id="usuarios-table" class="table-container loading">
-        <div class="spinner"></div> Cargando datos...
+      <div class="search-box">
+        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'vendedores-table')">
       </div>
+      <div id="vendedores-container"></div>
     </div>
-  </div>
+
+    <!-- PRODUCTOS -->
+    <div class="tab-content" id="productos-tab">
+      <h2>📦 Productos</h2>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openModal('productos', null)">+ Nuevo Producto</button>
+        <button class="btn btn-success" onclick="loadData('productos')">🔄 Actualizar</button>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'productos-table')">
+      </div>
+      <div id="productos-container"></div>
+    </div>
+
+    <!-- USUARIOS -->
+    <div class="tab-content" id="usuarios-tab">
+      <h2>🔐 Usuarios</h2>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openModal('usuarios', null)">+ Nuevo Usuario</button>
+        <button class="btn btn-success" onclick="loadData('usuarios')">🔄 Actualizar</button>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Buscar..." onkeyup="filterTable(this, 'usuarios-table')">
+      </div>
+      <div id="usuarios-container"></div>
+    </div>
+  </main>
 </div>
 
-<!-- MODAL -->
-<div id="modal" class="modal">
+<!-- MODAL EDITAR -->
+<div class="modal" id="edit-modal">
   <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2 id="modal-title"></h2>
-    <form id="data-form" onsubmit="handleSave(event)">
-      <div id="form-fields"></div>
-      <div class="modal-buttons">
-        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </form>
+    <div class="modal-header" id="modal-title">Editar Registro</div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()" style="background: #999; color: white;">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveRecord()">Guardar</button>
+    </div>
   </div>
 </div>
 
 <script>
-const WORKER_URL = 'https://ancient-feather-d3bd.gruponuwek.workers.dev';
+const API_URL = 'http://localhost:3000';
+let currentUser = null;
+let currentTable = null;
+let currentRecord = null;
+let allData = {};
 
-const app = {
-  user: null,
-  currentTable: 'ventas',
-  currentMaestro: 'clientes',
-  allData: [],
-  editingId: null,
-
-  async init() {
-    const stored = localStorage.getItem('user');
-    if (stored) {
-      try {
-        this.user = JSON.parse(stored);
-        this.showApp();
-        await this.loadTable('ventas');
-      } catch (err) {
-        this.showLogin();
-      }
-    } else {
-      this.showLogin();
-    }
-  },
-
-  showLogin() {
-    document.getElementById('login-screen').classList.remove('login-hidden');
-    document.getElementById('app').classList.add('login-hidden');
-  },
-
-  showApp() {
-    document.getElementById('login-screen').classList.add('login-hidden');
-    document.getElementById('app').classList.remove('login-hidden');
-    this.updateUserDisplay();
-  },
-
-  updateUserDisplay() {
-    if (!this.user) return;
-    document.getElementById('user-name').textContent = this.user.nombre_usuario || '';
-    document.getElementById('user-email').textContent = this.user.email || '';
-    document.getElementById('user-role').textContent = this.user.rol.toUpperCase();
-    
-    if (this.user.rol !== 'admin') {
-      document.getElementById('usuarios').style.display = 'none';
-    }
-  },
-
-  async loadTable(table) {
-    this.currentTable = table;
-    const containerId = table === 'ventas' ? 'ventas-table' : 
-                        table === 'usuarios' ? 'usuarios-table' : 'maestro-table';
-    const container = document.getElementById(containerId);
-    if (container) container.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando datos...</div>';
-    
-    try {
-      const url = `${WORKER_URL}/rest/v1/${table}`;
-      
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`Error al cargar datos`);
-      
-      this.allData = await response.json();
-      this.renderTable();
-    } catch (err) {
-      console.error('Error:', err.message);
-      const containerId = table === 'ventas' ? 'ventas-table' : 
-                          table === 'usuarios' ? 'usuarios-table' : 'maestro-table';
-      const container = document.getElementById(containerId);
-      if (container) {
-        container.innerHTML = `<div class="empty-state"><p>❌ Error: ${err.message}</p></div>`;
-      }
-    }
-  },
-
-  renderTable() {
-    const containerId = this.currentTable === 'ventas' ? 'ventas-table' : 
-                        this.currentTable === 'usuarios' ? 'usuarios-table' : 'maestro-table';
-    const container = document.getElementById(containerId);
-    
-    if (!container) {
-      console.error('Contenedor no encontrado:', containerId);
-      return;
-    }
-
-    if (!this.allData || this.allData.length === 0) {
-      container.innerHTML = '<div class="empty-state"><p>📭 No hay datos</p></div>';
-      return;
-    }
-
-    const cols = Object.keys(this.allData[0]);
-    let html = '<table><thead><tr>';
-    
-    cols.forEach(col => {
-      html += `<th>${col.replace(/_/g, ' ').toUpperCase()}</th>`;
-    });
-    html += '<th>ACCIONES</th></tr></thead><tbody>';
-
-    this.allData.forEach((row, idx) => {
-      html += '<tr>';
-      cols.forEach(col => {
-        let value = row[col];
-        let display = value;
-        
-        // Ocultar contraseña en tabla
-        if (col === 'contraseña' || col === 'password') {
-          display = '••••••••';
-        } else if (typeof value === 'boolean') {
-          display = value ? 'Sí' : 'No';
-        }
-        
-        html += `<td>${display || ''}</td>`;
-      });
-      html += `<td class="action-btns">
-        <button class="edit-btn" onclick="editRecord(${idx})">✏️ Editar</button>
-        <button class="delete-btn" onclick="deleteRecord(${idx})">🗑️ Borrar</button>
-      </td></tr>`;
-    });
-
-    html += '</tbody></table>';
-    container.innerHTML = html;
-  }
-};
-
-// LOGIN
+// ===== AUTENTICACIÓN =====
 async function handleLogin(e) {
   e.preventDefault();
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorEl = document.getElementById('login-error');
+  
   try {
-    // Para esta versión demo, usamos credenciales locales
-    // En producción, deberías autenticarte contra tu backend
-    if (email === 'admin@example.com' && password === 'admin123') {
-      app.user = {
-        id_usuario: 1,
-        nombre_usuario: 'Admin',
-        email: email,
-        rol: 'admin'
-      };
-    } else if (email === 'vendedor@example.com' && password === 'vend123') {
-      app.user = {
-        id_usuario: 2,
-        nombre_usuario: 'Vendedor',
-        email: email,
-        rol: 'vendedor'
-      };
+    const res = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    
+    const data = await res.json();
+    if (data.success) {
+      currentUser = { email, rol: data.rol };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      showApp();
     } else {
-      throw new Error('Email o contraseña incorrectos');
+      errorEl.textContent = 'Credenciales inválidas';
     }
-
-    localStorage.setItem('user', JSON.stringify(app.user));
-    app.showApp();
-    await app.loadTable('ventas');
   } catch (err) {
-    document.getElementById('login-error').textContent = err.message;
+    errorEl.textContent = 'Error de conexión. ¿El servidor está corriendo?';
+    console.error(err);
   }
 }
 
 function handleLogout() {
-  localStorage.removeItem('user');
-  app.user = null;
-  app.showLogin();
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-password').value = '';
+  currentUser = null;
+  localStorage.removeItem('currentUser');
+  location.reload();
 }
 
-// TABS
-function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+function showApp() {
+  document.getElementById('login-screen').classList.add('login-hidden');
+  document.getElementById('app-container').classList.add('visible');
+  document.getElementById('user-email').textContent = currentUser.email;
+  document.getElementById('user-rol').textContent = currentUser.rol.toUpperCase();
+  loadData('ventas');
+}
+
+// ===== TABS =====
+function switchTab(table) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
   
   event.target.classList.add('active');
-  document.getElementById(tab).classList.add('active');
+  document.getElementById(table + '-tab').classList.add('active');
+  
+  loadData(table);
+}
 
-  if (tab === 'ventas') {
-    app.loadTable('ventas');
-  } else if (tab === 'maestros') {
-    app.loadTable(app.currentMaestro);
-  } else if (tab === 'usuarios') {
-    app.loadTable('usuarios');
+// ===== CRUD =====
+async function loadData(table) {
+  try {
+    const res = await fetch(`${API_URL}/rest/v1/${table}`);
+    const data = await res.json();
+    allData[table] = data;
+    renderTable(table, data);
+  } catch (err) {
+    console.error('Error cargando datos:', err);
+    document.getElementById(table + '-container').innerHTML = `<div class="error">Error al cargar datos</div>`;
   }
 }
 
-function switchMaestro(maestro) {
-  app.currentMaestro = maestro;
-  document.querySelectorAll('.maestros-tabs button').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  app.loadTable(maestro);
+function renderTable(table, data) {
+  const columns = getColumns(table);
+  let html = `<table id="${table}-table"><thead><tr>`;
+  
+  columns.forEach(col => {
+    html += `<th>${col.label}</th>`;
+  });
+  html += '<th>Acciones</th></tr></thead><tbody>';
+  
+  data.forEach(row => {
+    html += '<tr>';
+    columns.forEach(col => {
+      let val = row[col.key] || '';
+      if (col.type === 'boolean') val = val ? '✓' : '';
+      html += `<td>${val}</td>`;
+    });
+    html += `<td style="white-space: nowrap;">
+      <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openModal('${table}', ${row[getIdColumn(table)]})">Editar</button>
+      <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteRecord('${table}', ${row[getIdColumn(table)]})">Borrar</button>
+    </td></tr>`;
+  });
+  
+  html += '</tbody></table>';
+  document.getElementById(table + '-container').innerHTML = html;
 }
 
-// MODAL
-function openModal(table) {
-  app.currentTable = table;
-  app.editingId = null;
-  document.getElementById('modal-title').textContent = `Crear ${table}`;
-  buildForm(table);
-  document.getElementById('modal').classList.add('active');
+function getIdColumn(table) {
+  const map = {
+    'ventas': 'id_venta',
+    'clientes': 'id_cliente',
+    'vendedores': 'id_vendedor',
+    'productos': 'id_producto',
+    'usuarios': 'id_usuario'
+  };
+  return map[table];
+}
+
+function getColumns(table) {
+  const cols = {
+    'ventas': [
+      { key: 'id_venta', label: 'ID' },
+      { key: 'fecha_venta', label: 'Fecha' },
+      { key: 'id_cliente', label: 'Cliente' },
+      { key: 'id_vendedor', label: 'Vendedor' },
+      { key: 'metodo_pago', label: 'Método' },
+      { key: 'total_venta', label: 'Total' },
+      { key: 'estado_venta', label: 'Estado' }
+    ],
+    'clientes': [
+      { key: 'id_cliente', label: 'ID' },
+      { key: 'nombre_cliente', label: 'Nombre' },
+      { key: 'telefono', label: 'Teléfono' },
+      { key: 'correo', label: 'Email' },
+      { key: 'ciudad', label: 'Ciudad' },
+      { key: 'tipo_cliente', label: 'Tipo' }
+    ],
+    'vendedores': [
+      { key: 'id_vendedor', label: 'ID' },
+      { key: 'nombre_vendedor', label: 'Nombre' },
+      { key: 'correo', label: 'Email' },
+      { key: 'activo', label: 'Activo', type: 'boolean' }
+    ],
+    'productos': [
+      { key: 'id_producto', label: 'ID' },
+      { key: 'sku', label: 'SKU' },
+      { key: 'nombre_producto', label: 'Nombre' },
+      { key: 'categoria', label: 'Categoría' },
+      { key: 'precio_base', label: 'Precio' },
+      { key: 'costo_base', label: 'Costo' },
+      { key: 'activo', label: 'Activo', type: 'boolean' }
+    ],
+    'usuarios': [
+      { key: 'id_usuario', label: 'ID' },
+      { key: 'nombre_usuario', label: 'Nombre' },
+      { key: 'email', label: 'Email' },
+      { key: 'rol', label: 'Rol' },
+      { key: 'activo', label: 'Activo', type: 'boolean' }
+    ]
+  };
+  return cols[table] || [];
+}
+
+function openModal(table, recordId) {
+  currentTable = table;
+  currentRecord = recordId;
+  const isNew = !recordId;
+  const data = isNew ? {} : allData[table].find(r => r[getIdColumn(table)] == recordId);
+  
+  document.getElementById('modal-title').textContent = isNew ? `Nuevo ${table}` : `Editar ${table}`;
+  
+  let formHtml = '';
+  const cols = getColumns(table);
+  
+  cols.forEach(col => {
+    if (col.key.startsWith('id_')) return;
+    const val = data ? data[col.key] || '' : '';
+    
+    if (col.type === 'boolean') {
+      formHtml += `
+        <div class="form-group">
+          <label>${col.label}</label>
+          <select name="${col.key}">
+            <option value="true" ${val === true ? 'selected' : ''}>Sí</option>
+            <option value="false" ${val === false ? 'selected' : ''}>No</option>
+          </select>
+        </div>
+      `;
+    } else {
+      formHtml += `
+        <div class="form-group">
+          <label>${col.label}</label>
+          <input type="text" name="${col.key}" value="${val}" required>
+        </div>
+      `;
+    }
+  });
+  
+  document.getElementById('modal-body').innerHTML = formHtml;
+  document.getElementById('edit-modal').classList.add('active');
 }
 
 function closeModal() {
-  document.getElementById('modal').classList.remove('active');
-  document.getElementById('data-form').reset();
+  document.getElementById('edit-modal').classList.remove('active');
 }
 
-function buildForm(table) {
-  const form = document.getElementById('form-fields');
-  form.innerHTML = '';
-
-  const sample = app.allData[0] || {};
-  const cols = Object.keys(sample).filter(col => !col.startsWith('id_'));
-
-  cols.forEach(col => {
-    const group = document.createElement('div');
-    group.className = 'form-group';
-
-    const label = document.createElement('label');
-    label.textContent = col.replace(/_/g, ' ').toUpperCase();
-
-    const input = document.createElement('input');
-    
-    // Tipo de input según columna
-    if (col === 'contraseña' || col === 'password') {
-      input.type = 'password';
-      input.id = 'password-input'; // ID para poder acceder después
-    } else if (col.includes('correo') || col.includes('email')) {
-      input.type = 'email';
-    } else if (col.includes('fecha')) {
-      input.type = 'date';
-    } else {
-      input.type = 'text';
-    }
-    
-    input.name = col;
-
-    if (table === 'clientes' && col === 'fecha_registro') {
-      input.type = 'date';
-      input.value = new Date().toISOString().split('T')[0];
-    }
-
-    group.appendChild(label);
-    
-    // Si es contraseña, agregar input y botón de ojo
-    if (col === 'contraseña' || col === 'password') {
-      const inputWrapper = document.createElement('div');
-      inputWrapper.style.position = 'relative';
-      
-      input.style.paddingRight = '40px';
-      inputWrapper.appendChild(input);
-      
-      const eyeBtn = document.createElement('button');
-      eyeBtn.type = 'button';
-      eyeBtn.innerHTML = '👁️';
-      eyeBtn.style.position = 'absolute';
-      eyeBtn.style.right = '10px';
-      eyeBtn.style.top = '50%';
-      eyeBtn.style.transform = 'translateY(-50%)';
-      eyeBtn.style.border = 'none';
-      eyeBtn.style.background = 'none';
-      eyeBtn.style.cursor = 'pointer';
-      eyeBtn.style.fontSize = '1.2rem';
-      eyeBtn.style.padding = '5px';
-      
-      eyeBtn.onclick = (e) => {
-        e.preventDefault();
-        const inp = document.getElementById('password-input');
-        if (inp.type === 'password') {
-          inp.type = 'text';
-          eyeBtn.innerHTML = '👁️‍🗨️';
-        } else {
-          inp.type = 'password';
-          eyeBtn.innerHTML = '👁️';
-        }
-      };
-      
-      inputWrapper.appendChild(eyeBtn);
-      group.appendChild(inputWrapper);
-    } else {
-      group.appendChild(input);
-    }
-    
-    form.appendChild(group);
-  });
-}
-
-function editRecord(idx) {
-  const record = app.allData[idx];
-  app.editingId = Object.values(record)[0];
-  document.getElementById('modal-title').textContent = `Editar ${app.currentTable}`;
-  buildForm(app.currentTable);
-
-  const inputs = document.querySelectorAll('#form-fields input');
-  const cols = Object.keys(record).filter(col => !col.startsWith('id_'));
-  cols.forEach((col, i) => {
-    if (inputs[i]) inputs[i].value = record[col] || '';
-  });
-
-  document.getElementById('modal').classList.add('active');
-}
-
-async function deleteRecord(idx) {
-  if (!confirm('¿Estás seguro de que quieres borrar esto?')) return;
-
-  const record = app.allData[idx];
-  const idKey = Object.keys(record)[0];
-  const idValue = record[idKey];
-
-  try {
-    const url = `${WORKER_URL}/rest/v1/${app.currentTable}?${idKey}=eq.${idValue}`;
-    const response = await fetch(url, { method: 'DELETE' });
-    if (!response.ok) throw new Error('Error al borrar');
-    await app.loadTable(app.currentTable);
-  } catch (err) {
-    alert('Error: ' + err.message);
-  }
-}
-
-async function handleSave(e) {
-  e.preventDefault();
-
-  const formData = new FormData(document.getElementById('data-form'));
+async function saveRecord() {
+  const form = document.getElementById('modal-body');
+  const formData = new FormData(form);
   const record = Object.fromEntries(formData);
-
+  
+  if (currentRecord) {
+    record.id = currentRecord;
+  }
+  
   try {
-    const url = `${WORKER_URL}/rest/v1/${app.currentTable}`;
-    const method = app.editingId ? 'PATCH' : 'POST';
-
-    const response = await fetch(url, {
-      method: method,
+    const method = currentRecord ? 'PATCH' : 'POST';
+    const res = await fetch(`${API_URL}/rest/v1/${currentTable}`, {
+      method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(record)
     });
-
-    if (!response.ok) throw new Error('Error al guardar');
-
-    closeModal();
-    await app.loadTable(app.currentTable);
+    
+    if (res.ok) {
+      closeModal();
+      loadData(currentTable);
+    } else {
+      alert('Error al guardar: ' + res.statusText);
+    }
   } catch (err) {
-    alert('Error: ' + err.message);
+    console.error('Error guardando:', err);
+    alert('Error al guardar');
   }
 }
 
-function filterTable() {
-  const searchInput = document.getElementById(app.currentTable === 'maestros' ? 'search-maestro' : 'search-input').value.toLowerCase();
-  // Implementar filtro según sea necesario
-}
-
-function exportCSV(table) {
-  if (app.allData.length === 0) {
-    alert('No hay datos para exportar');
-    return;
-  }
-
-  const cols = Object.keys(app.allData[0]);
-  let csv = cols.join(',') + '\n';
+async function deleteRecord(table, id) {
+  if (!confirm('¿Eliminar este registro?')) return;
   
-  app.allData.forEach(row => {
-    csv += cols.map(col => `"${row[col] || ''}"`).join(',') + '\n';
-  });
-
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${table}_${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
+  try {
+    const res = await fetch(`${API_URL}/rest/v1/${table}/${id}`, {
+      method: 'DELETE'
+    });
+    
+    if (res.ok) {
+      loadData(table);
+    } else {
+      alert('Error al eliminar');
+    }
+  } catch (err) {
+    console.error('Error eliminando:', err);
+    alert('Error al eliminar');
+  }
 }
 
-// INIT
-window.addEventListener('load', () => app.init());
-window.addEventListener('beforeunload', () => localStorage.removeItem('user'));
+function filterTable(input, tableId) {
+  const filter = input.value.toUpperCase();
+  const table = document.getElementById(tableId);
+  const rows = table.getElementsByTagName('tr');
+  
+  for (let i = 1; i < rows.length; i++) {
+    const text = rows[i].textContent.toUpperCase();
+    rows[i].style.display = text.includes(filter) ? '' : 'none';
+  }
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  const stored = localStorage.getItem('currentUser');
+  if (stored) {
+    currentUser = JSON.parse(stored);
+    showApp();
+  }
+});
 </script>
 
 </body>
